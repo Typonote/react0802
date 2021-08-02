@@ -15,39 +15,42 @@ function HeaderTag() {
 }
 
 // NavTag태그 컴포넌트 생성
-function NavTag() {
+function NavTag(props){
+  console.log('props.data', props.data);
+  var lis = [];
+  for(var i=0; i<props.data.length; i++){
+    lis.push(<li>{props.data[i].title}</li>);
+  }
+
   return (
     <nav>
       <ol>
-        <li>
-          <a href="1.html">html</a>
-        </li>
-        <li>
-          <a href="1.html">css</a>
-        </li>
+        {lis}
       </ol>
     </nav>
-  );
+  )
 }
 
 // NavTag태그 컴포넌트 생성
-function ReadTag() {
+function ReadTag(props) {
   return (
     <article>
-        <h2>Welcome</h2>
-        Hello, React
+        <h2>{props.title}</h2>
+        {props.desc}
     </article>
   );
 }
-
 
 
 function App() {
   return (
     <div className="App">
         <HeaderTag></HeaderTag>
-        <NavTag></NavTag>
-        <ReadTag></ReadTag>
+        <NavTag data={[
+          {id:1, title:'HTML', desc:'HTML is ...'},
+          {id:2, title:'CSS', desc:'CSS is ...'}
+        ]}></NavTag>
+        <ReadTag title="Welcome" desc="Hello, WEB"></ReadTag>
     </div>
   );
 }
