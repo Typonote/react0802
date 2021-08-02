@@ -53,10 +53,18 @@ function ReadTag(props) {
 }
 
 // Contro태그 컴포넌트 생성
-function Control(){
+function Control(props){
+  function ControlClickHandler(e){
+    e.preventDefault();
+    // e.target.dataset.id을 통해 data-mode값을 받을 수 있다.
+    props.onChageMode(e.target.dataset.mode);
+  }
+
   return(
     <div>
-      <a href="/create">create</a> | <a href="/update">update</a> | <input type="button" value="delete"></input>
+      <a href="/create" data-mode="create" onClick={ControlClickHandler}>create</a> | 
+      <a href="/update" data-mode="update" onClick={ControlClickHandler}>update</a> | 
+      <input type="button" data-mode="delete" value="delete" onClick={ControlClickHandler}></input>
     </div>
   );
 }
@@ -85,6 +93,11 @@ function App() {
     setId(id);
   }
 
+  function onChageModeControl(c_mode){
+    console.log('onChageModeControl', c_mode);
+    setMode(c_mode);
+  }
+
   var article = null;
 
   if(mode === 'WELCOME') {
@@ -96,6 +109,10 @@ function App() {
         break;
       }
     }
+  } else if(mode === 'create') {
+    article = <div>Create</div>
+  } else if(mode === 'update') {
+    article = <div>Update</div>
   }
 
   return (
@@ -103,7 +120,7 @@ function App() {
         <HeaderTag onChageMode={onChageModeHeader}></HeaderTag>
         <NavTag onChageMode={onChageModeNav} data={topics}></NavTag>
         {article}
-        <Control></Control>
+        <Control onChageMode={onChageModeControl}></Control>
     </div>
   );
 }
