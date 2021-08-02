@@ -14,7 +14,7 @@ function HeaderTag() {
   );
 }
 
-// header태그 컴포넌트 생성
+// NavTag태그 컴포넌트 생성
 function NavTag() {
   return (
     <nav>
@@ -30,6 +30,16 @@ function NavTag() {
   );
 }
 
+// NavTag태그 컴포넌트 생성
+function ReadTag() {
+  return (
+    <article>
+        <h2>Welcome</h2>
+        Hello, React
+    </article>
+  );
+}
+
 
 
 function App() {
@@ -37,6 +47,7 @@ function App() {
     <div className="App">
         <HeaderTag></HeaderTag>
         <NavTag></NavTag>
+        <ReadTag></ReadTag>
     </div>
   );
 }
