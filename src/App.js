@@ -25,10 +25,8 @@ function NavTag(props){
   function navClickHandler(e){
     e.preventDefault();
     // e.target.dataset.id을 통해 data-id값을 받을 수 있다.
-    props.onChageMode(e.target.dataset.id);
+    props.onChageMode(Number(e.target.dataset.id));
   }
-
-  
 
   var lis = [];
   for(var i=0; i<props.data.length; i++){
@@ -54,16 +52,25 @@ function ReadTag(props) {
   );
 }
 
+// Contro태그 컴포넌트 생성
+function Control(){
+  return(
+    <div>
+      <a href="/create">create</a> | <a href="/update">update</a> | <input type="button" value="delete"></input>
+    </div>
+  );
+}
+
 // 배부 data는 state로 외부에서 사용할 data는 props
 // HeaderTag의 WEB을 클릭하면 onChangeMode에 입력한 함수가 실행되어 어떤 작업을 수행하도록 설정
 function App() {
-  
   console.log('App render');
   var [mode, setMode] = useState('WELCOME');
   var [id, setId] = useState(1);
   var topics = [
     {id:1, title:'HTML', desc:'HTML is ...'},
-    {id:2, title:'CSS', desc:'CSS is ...'}
+    {id:2, title:'CSS', desc:'CSS is ...'},
+    {id:3, title:'REACT', desc:'REACT is ...'}
   ]
 
   function onChageModeHeader(){
@@ -74,10 +81,10 @@ function App() {
   function onChageModeNav(id){
     console.log('onChangeModeNav', id);
     setMode('READ')
-    // id값에 따라 UI를 변경하는 코드 
+    // id값에 따라 UI를 변경하는 코드
+    setId(id);
   }
 
-  
   var article = null;
 
   if(mode === 'WELCOME') {
@@ -96,8 +103,12 @@ function App() {
         <HeaderTag onChageMode={onChageModeHeader}></HeaderTag>
         <NavTag onChageMode={onChageModeNav} data={topics}></NavTag>
         {article}
+        <Control></Control>
     </div>
   );
 }
+
+
+
 
 export default App;
