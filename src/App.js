@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import {useState} from 'react';
 
 // header태그 컴포넌트 생성
 function HeaderTag(props) {
@@ -23,12 +24,15 @@ function NavTag(props){
   
   function navClickHandler(e){
     e.preventDefault();
-    props.onChageMode();
+    // e.target.dataset.id을 통해 data-id값을 받을 수 있다.
+    props.onChageMode(e.target.dataset.id);
   }
+
+  
 
   var lis = [];
   for(var i=0; i<props.data.length; i++){
-    lis.push(<li><a href={props.data[i].id+".html"} onClick = {navClickHandler}>{props.data[i].title}</a></li>);
+    lis.push(<li><a href={props.data[i].id+".html"} onClick = {navClickHandler} data-id={props.data[i].id}>{props.data[i].title}</a></li>);
   }
 
   return (
@@ -52,15 +56,18 @@ function ReadTag(props) {
 
 // HeaderTag의 WEB을 클릭하면 onChangeMode에 입력한 함수가 실행되어 어떤 작업을 수행하도록 설정
 function App() {
-
-  var mode = 'WELCOME';
+  console.log('App render');
+  var [mode, setMode] = useState('WELCOME');
 
   function onChageModeHeader(){
     console.log('onChangeModeHeader');
+    setMode('WELCOME')
   }
 
-  function onChageModeNav(){
-    console.log('onChangeModeNav');
+  function onChageModeNav(id){
+    console.log('onChangeModeNav', id);
+    setMode('READ')
+    // id값에 따라 UI를 변경하는 코드 
   }
 
   var article = null;
